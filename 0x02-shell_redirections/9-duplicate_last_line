@@ -1,2 +1,2 @@
 #!/bin/bash
-
+l -n 1 iacta >> iacta
