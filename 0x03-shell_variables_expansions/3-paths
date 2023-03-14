@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "There are $(ls | wc -l) directories in $PATH"
