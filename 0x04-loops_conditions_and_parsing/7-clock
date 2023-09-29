@@ -10,14 +10,9 @@ do
 	minute=1
 	while [ $minute -le 59 ]
 	do
-		echo $minute
-		minute=$((minute+1))
-
-		if [ $((hour * 60 + minute)) -gt 69 ]
-		then
-			exit 0
-		fi
+		echo "$minute"
+		(( minute++ ))
 	done
+	(( hour++ ))
 
-	hour=$((hour+1))
 done
