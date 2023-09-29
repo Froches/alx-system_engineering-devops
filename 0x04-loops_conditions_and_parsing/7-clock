@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script displays time in 12-hour format from 0:01 to 12:59
+
+hour=0
+
+while [ $hour -le 12 ]
+do
+	echo "Hour: $hour"
+
+	minute=1
+	while [ $minute -le 59 ]
+	do
+		echo $minute
+		minute=$((minute+1))
+
+		if [ $(($hour * 60 + $minute)) -gt 69 ]
+		then
+			exit 0
+		fi
+	done
+
+	hour=$((hour+1))
+done
