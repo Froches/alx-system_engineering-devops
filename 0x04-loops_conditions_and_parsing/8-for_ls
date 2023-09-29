@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 # This script lists and formats the content of the current directory
 
-for file in *
+lst=$(ls)
+
+for i in $lst
 do
-	base_name=$(basename "$file")
-
-	if [[ ! "$base_name" =~ ^\..* && "$base_name" =~ - ]]
-	then
-		formatted_name=$(echo "$base_name" | cut -d'-' -f2-)
-
-		echo "$formatted_name"
-	fi
+	echo "$i" | cut -d '-' -f2
 done
