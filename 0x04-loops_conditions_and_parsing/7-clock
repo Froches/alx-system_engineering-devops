@@ -13,7 +13,7 @@ do
 		echo $minute
 		minute=$((minute+1))
 
-		if [ $(($hour * 60 + $minute)) -gt 69 ]
+		if [ $((hour * 60 + minute)) -gt 69 ]
 		then
 			exit 0
 		fi
