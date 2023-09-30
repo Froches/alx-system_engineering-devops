@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
 # Stops Infinity and beyond from running without using kill or killall.
+
+pkill -f 4-to_infinity_and_beyond
