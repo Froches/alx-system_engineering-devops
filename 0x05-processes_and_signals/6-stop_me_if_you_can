@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+# Stops Infinity and beyond from running without using kill or killall.
