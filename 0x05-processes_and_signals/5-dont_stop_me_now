@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
 # Uses --kill-- to stop Infinity and beyond from running.
+
+kill "$(pgrep -f 4-to_infinity_and_beyond)"
