@@ -1,2 +1,9 @@
 #!/usr/bin/env bash
 # Shell script that does multiple tasks
+
+trap "echo 'I am invincible!!!'" SIGTERM
+while true
+do
+	echo "To infinity and beyond"
+	sleep 
+done
