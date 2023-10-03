@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# The story of pssword
+
+while IFS=: read -r username password uid gid info home shell
+do
+	echo "The user $username is part of the group $gid, lives in $home, and uses $shell as their command/shell."
+	echo "User $uid's place is protected by the passcode $password."
+	echo "More info about the user: $info"
+done < /etc/passwd
