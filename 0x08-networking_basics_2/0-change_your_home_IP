@@ -3,6 +3,16 @@
 #+ localhost resolves to 127.0.0.2
 #+ facebook.com resolves to 8.8.8.8
 
-cp /etc/hosts ~/hosts.new
-sed -i 's/127.*$/127.0.0.2 localhost\n8.8.8.8 facebook.com/' ~hosts.new
-cp -f ~/hosts.new /etc/hosts
+if [ "$(id -u)" -ne 0 ]
+then
+	echo "This script must be run as root"
+	exit 1
+fi
+
+hosts_file="/etc/hosts"
+backup_file="$HOME/hosts.new"
+
+cp "$hosts_file" "$backup_file"
+
+sed -i 's/127.*$/127.0.0.2 localhost\n8.8.8.8 facebook.com/' "$backup_file"
+cp -f "$backup_file" "$hosts_file"
