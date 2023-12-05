@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Comment... Will add later
+sudo apt-get update
+sudo apt-get install -y haproxy=2.0.\*
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+echo "
+frontend localnodes
+    bind *:80
+    mode http
+    default_backend nodes
+
+backend nodes
+    mode http
+    balance roundrobin
+    option forwardfor
+    http-request set-header X-Forwarded-Port %[dst_port]
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+    option httpchk HEAD / HTTP/1.1\r\nHost:localhost
+    server web01 [web-01-ip]:80 check
+    server web02 [web-02-ip]:80 check
+" | sudo tee /etc/haproxy/haproxy.cfg
+
+sudo service haproxy restart
