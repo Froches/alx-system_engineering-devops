@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
-# Comment... Will add later
-sudo apt-get -y install software-properties-common
-sudo add-apt-repository -y ppa:vbernat/haproxy-2.5
-sudo apt-get -y update
+# Install and configure HAproxy on my lb-01 server
 
-sudo apt-get -y install haproxy
-sudo sed -i -e '$aENABLED=1\n' /etc/default/haproxy
-sudo sed -i -e '$a\listen http-in\n\tbind :80\n\tbalance roundrobin\n\tserver 71770-web-01 100.24.206.107:80 check\n\tserver 71770-web-02 100.25.131.225:80 check\n' /etc/haproxy/haproxy.cfg
+sudo apt-get update
+sudo apt-get install --no-install-recommends software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-2.6
+sudo apt-get install haproxy=2.6.\*
+sudo cp -a /etc/haproxy/haproxy.cfg{,.original_copy}
+sudo echo "
+frontend froches_front
+        bind 127.0.0.1:80
+        default_backend froches_servers
+
+backend froches_servers
+        balance roundrobin
+        server web-01 52.91.120.5:80 check
+        server web-02 54.237.33.167:80 check
+" > /etc/haproxy/haproxy.cfg
+sudo echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 sudo service haproxy restart
