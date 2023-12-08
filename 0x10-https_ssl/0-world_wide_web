@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Function to display subdomain information
+
+display_info() {
+  local domain=$1
+  local subdomain=$2
+  local record_info=$(dig +short $subdomain.$domain)
+  echo "The subdomain $subdomain is an A record and points to $record_info"
+}
+
+if [ -z "$2" ]; then
+
+  for subdomain in www lb-01 web-01 web-02; do
+    display_info $1 $subdomain
+  done
+else
+  display_info $1 $2
+fi
