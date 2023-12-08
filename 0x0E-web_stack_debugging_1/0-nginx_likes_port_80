@@ -1,50 +1,7 @@
 #!/usr/bin/env bash
-# Update the package list
+# what’s keeping your Ubuntu container’s Nginx installation from listening on port 8?
+# configures nginx to run and listen to port 80
 
-sudo apt-get -y update
-
-# Install Nginx
-sudo apt-get -y install nginx
-
-# Allow Nginx HTTP through the firewall
-sudo ufw allow 'Nginx HTTP'
-
-# Create required directories and set permissions
-sudo mkdir -p /var/www/html /var/www/error
-sudo chmod -R 755 /var/www
-
-# Create index and 404 error pages
-echo "Hello World!" > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-
-# Get the hostname
-hostname=$(hostname)
-
-# Create the server configuration
-server_config=$(cat <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-
-    server_name _;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-        add_header X-Served-By \$hostname;
-    }
-    if (\$request_filename ~ redirect_me){
-        rewrite ^ https://youtube.com permanent;
-    }
-    error_page 404 /404.html;
-    location = /404.html {
-        internal;
-    }
-}
-EOF
-)
-echo "$server_config" | sudo tee /etc/nginx/sites-enabled/default
-
-sudo service nginx restart
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart
