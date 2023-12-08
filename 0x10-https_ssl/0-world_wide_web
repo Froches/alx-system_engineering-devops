@@ -5,7 +5,7 @@ display_info() {
   local domain=$1
   local subdomain=$2
   local record_info=$(dig +short $subdomain.$domain)
-  echo "The subdomain $subdomain is an A record and points to $record_info"
+  echo "The subdomain $subdomain is a A record and points to $record_info"
 }
 
 if [ -z "$2" ]; then
