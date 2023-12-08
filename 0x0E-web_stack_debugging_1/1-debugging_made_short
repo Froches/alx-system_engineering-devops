@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Removes the current default configuration in sites-enabled
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+service nginx restart
