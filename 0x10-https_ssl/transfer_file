@@ -1,4 +1,4 @@
-nsfer a file to your server
+#Transfer a file to your server
 
 file_path="$1"
 server_ip="$2"
