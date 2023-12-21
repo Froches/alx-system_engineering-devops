@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-# Comment will be added
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -40,5 +38,5 @@ frontend froches_front
 
 backend froches_servers
     balance roundrobin
-    server 330540-web-01 52.91.120.5.example.com:80 check
-    server 330540-web-02 54.237.33.167.example.com:80 check
+    server 330540-web-01 52.91.120.5.froches.tech:80 check
+    server 330540-web-02 54.237.33.167.froches.tech:80 check
