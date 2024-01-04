@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-"""Comment"""
+"""Gather data from an API"""
 import requests
 import sys
 
 
 def get_employee_todo_progress(employee_id):
+    """The function to gather data"""
     base_url = f"""
     https://jsonplaceholder.typicode.com/users/{employee_id}/todos
     """
@@ -22,15 +23,15 @@ def get_employee_todo_progress(employee_id):
         employee_name = user_info.json()['name']
 
         # Count completed tasks and fetch task titles
-        completed_tasks = [todo['title'] for\
-                todo in todos if todo['completed']]
+        completed_tasks = [todo['title'] for
+                           todo in todos if todo['completed']]
         number_of_done_tasks = len(completed_tasks)
         total_number_of_tasks = len(todos)
 
         # Display progress
         print(f"Employee {employee_name} is
-                done with tasks ({number_of_done_
-                tasks}/{total_number_of_tasks}): ")
+              done with tasks({number_of_done_
+                              tasks}/{total_number_of_tasks}): ")
         print(f"{employee_name}:")
 
         # Display completed task titles
