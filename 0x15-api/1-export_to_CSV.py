@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Export to CSV
+"""
 import csv
 import re
 import requests
@@ -9,6 +12,10 @@ API = "https://jsonplaceholder.typicode.com"
 
 
 def export_to_csv(user_id, user_name, todos):
+    """
+    Function to export to CSV format
+    """
+
     file_name = f"{user_id}.csv"
     with open(file_name, mode='w', newline='') as file:
         writer = csv.writer(file)
