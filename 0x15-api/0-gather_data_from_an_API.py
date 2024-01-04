@@ -21,7 +21,7 @@ def get_employee_todo_progress(employee_id):
         done_tasks = len(completed_tasks)
         total_tasks = len(todos)
         print(f"Employee {name} is done with tasks ({done_tasks}/{total_tasks}):")
-        print(f"{name}:")
+        # print(f"{name}:")
         for task in completed_tasks:
             print(f"\t{task}")
     except requests.exceptions.RequestException as e:
