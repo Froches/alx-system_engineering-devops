@@ -1,37 +1,34 @@
 #!/usr/bin/python3
 """
-Function to gather data from an API
+Module to gather employee data
 """
 import requests
 import sys
 
 
 def get_employee_todo_progress(employee_id):
-    """
-    The function to get employee todo progress
-    """
+    # Base URL
+    url = "https://jsonplaceholder.typicode.com/"
 
-    try:
-        todos = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}/todos').json()
-        user_info = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}').json()
-        name = user_info['name']
-        completed_tasks = [
-                todo['title'] for todo in todos if todo['completed']
-        ]
-        done_tasks = len(completed_tasks)
-        total_tasks = len(todos)
-        print(f"Employee {name} is done with tasks ({done_tasks}/{total_tasks}):")
-        # print(f"{name}:")
-        for task in completed_tasks:
-            print(f"\t{task}")
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+    # Fetch user data
+    user = requests.get(url + f"users/{employee_id}").json()
+
+    # Fetch todos for the user
+    todos = requests.get(url + "todos", params={"userId": employee_id}).json()
+
+    # Calculate progress
+    completed_tasks = [task for task in todos if task.get('completed') is True]
+    total_tasks = len(todos)
+
+    print(
+        f"Employee {user.get('name')} is done with tasks("
+        f"{len(completed_tasks)}/{total_tasks}):"
+    )
+    for task in completed_tasks:
+        print("\t {}".format(task.get('title')))
 
 
+# Usage: python script.py [EMPLOYEE_ID]
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <employee_id>")
-        sys.exit(1)
-    employee_id = int(sys.argv[1])
+    employee_id = sys.argv[1]
     get_employee_todo_progress(employee_id)
