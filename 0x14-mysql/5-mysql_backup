@@ -20,9 +20,7 @@ if [ $? -ne 0 ]; then
         exit 1
 fi
 
-# gzip > "${archive_name}"
-
-tar -czf "${archive_name}" "${destination}"
+gzip "${destination}"
 
 if [ $? -ne 0 ]; then
         echo "Error: Archive creation failed."
