@@ -2,8 +2,8 @@
 # Bash script that generates a MySQL dump and creates a compressed archive out of it.
 
 if [ "$#" -ne 1 ]; then
-	echo "Usage: $0 <mysql_root_password>"
-	exit 1
+        echo "Usage: $0 <mysql_root_password>"
+        exit 1
 fi
 
 mysql_root_password="$1"
@@ -13,11 +13,20 @@ time=$(date +%d-%m-%Y)
 destination="backup.sql"
 archive_name="${time}.tar.gz"
 
-sudo mysqldump -u root -p "${mysql_root_password}" --all-databases | gzip > "${archive_name}"
+sudo mysqldump -u root  --all-databases > "${destination}"
 
 if [ $? -ne 0 ]; then
-	echo "Error: MySQL dump failed."
-	exit 1
+        echo "Error: MySQL dump failed."
+        exit 1
+fi
+
+# gzip > "${archive_name}"
+
+tar -czf "${archive_name}" "${destination}"
+
+if [ $? -ne 0 ]; then
+        echo "Error: Archive creation failed."
+        exit 1
 fi
 
 echo "Backup completed successfully. Archive: ${archive_name}"
