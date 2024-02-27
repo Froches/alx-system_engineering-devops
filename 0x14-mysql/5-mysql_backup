@@ -11,7 +11,7 @@ mysql_root_password="$1"
 time=$(date +%d-%m-%Y)
 
 destination="backup.sql"
-archive_name="{time}.tar.gz"
+archive_name="${time}.tar.gz"
 
 sudo mysqldump -u root -p "${mysql_root_password}" --all-databases | gzip > "${archive_name}"
 
